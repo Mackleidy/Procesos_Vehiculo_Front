@@ -35,10 +35,10 @@ function listar(){
         headers:{
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': localStorage.token
+            'Authorization': `Bearer ${localStorage.token}`
         },
     }
-    fetch(urlApi+"/user",settings)
+    fetch(urlApi+"/user/alls",settings)
     .then(response => response.json())
     .then(function(users){
         
@@ -63,24 +63,6 @@ function listar(){
                 
             }
             document.getElementById("listar").innerHTML = usuarios;
-    })
-}
-
-function eliminaUsuario(id){
-    validaToken();
-    var settings={
-        method: 'DELETE',
-        headers:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': localStorage.token
-        },
-    }
-    fetch(urlApi+"/api/users/"+id,settings)
-    .then(response => response.json())
-    .then(function(data){
-        listar();
-        alertas("Se ha eliminado el usuario exitosamente!",2)
     })
 }
 
@@ -230,7 +212,7 @@ async function registrarUsuario(){
     for(var [k, v] of formData){//convertimos los datos a json
         jsonData[k] = v;
     }
-    const request = await fetch(urlApi+"/user", {
+    const request = await fetch(urlApi+"/user/", {
         method: 'POST',
         headers:{
             'Accept': 'application/json',
